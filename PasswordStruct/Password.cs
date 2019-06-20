@@ -28,104 +28,45 @@ namespace PasswordStruct
 
         public bool CheckPasswordComplexity()
         {
-            return HasLower() && HasUpper() && HasDigit() && HasSymbols() && HasSimilarChar() && HasAmbiguousChars();
+            return HasLower() && HasUpper() && HasDigit() && HasSymbols();
         }
 
         public bool HasSymbols()
         {
-            int symbol = 0;
-            for (int i = 0; i < password.Length; i++)
-            {
-                char c = password[i];
-                foreach (char chr in symbolChar)
-                {
-                    if (chr == c)
-                    {
-                        symbol++;
-                    }
-                }
-            }
+            int symbol = (from c in password from chr in symbolChar where chr == c select c).Count();
 
             return symbol >= minSymbols;
         }
 
         public bool HasLower()
         {
-            int lowerCaseLetters = 0;
-            for (int i = 0; i < password.Length; i++)
-            {
-                char c = password[i];
-                if (char.IsLower(c))
-                {
-                    lowerCaseLetters++;
-                }
-            }
+            int lowerCaseLetters = password.Count(char.IsLower);
 
             return lowerCaseLetters >= minSmallLetter;
         }
 
         public bool HasUpper()
         {
-            int upperCaseLetters = 0;
-            for (int i = 0; i < password.Length; i++)
-            {
-                char c = password[i];
-                if (char.IsUpper(c))
-                {
-                    upperCaseLetters++;
-                }
-            }
+            int upperCaseLetters = password.Count(char.IsUpper);
 
             return upperCaseLetters >= minBigLetter;
         }
 
         public bool HasDigit()
         {
-            int digit = 0;
-            for (int i = 0; i < password.Length; i++)
-            {
-                char c = password[i];
-                if (char.IsDigit(c))
-                {
-                    digit++;
-                }
-            }
+            int digit = password.Count(char.IsDigit);
 
             return digit >= minNumbers;
         }
 
         public bool HasSimilarChar()
         {
-            for (int i = 0; i < password.Length; i++)
-            {
-                char c = password[i];
-                foreach (char chr in similarChar)
-                {
-                    if (chr == c)
-                    {
-                        return true;
-                    }
-                        
-                }
-            }
-            return false;
+            return (from c in password from chr in similarChar where chr == c select c).Any();
         }
 
         public bool HasAmbiguousChars()
         {
-            for (int i = 0; i < password.Length; i++)
-            {
-                char c = password[i];
-                foreach (char chr in ambiguousChar)
-                {
-                    if (chr == c)
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            return false;
+            return (from c in password from chr in ambiguousChar where chr == c select c).Any();
         }
     }
 }

@@ -6,7 +6,6 @@ namespace PasswordStruct
     {
         private static void Main()
         {
-            
             var password = Console.ReadLine();
             var minSmallLetter = Convert.ToInt32(Console.ReadLine());
             var minBigLetter = Convert.ToInt32(Console.ReadLine());

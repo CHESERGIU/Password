@@ -4,7 +4,6 @@ namespace PasswordStruct
 {
     public class Password
     {
-        private readonly string symbolChar = "!@#$%^&*()-_=+`~,./?><;:\\'\\[{}]";
         private readonly char[] similarChar = { 'l', '1', 'I', 'o', '0', 'O' };
         private readonly char[] ambiguousChar = { '{', '}', '[', ']', '(', ')', '/', '\'', '"', '~', ';', '.', '<', '>' };
         private readonly string password;
@@ -12,10 +11,6 @@ namespace PasswordStruct
         private readonly int minBigLetter;
         private readonly int minNumbers;
         private readonly int minSymbols;
-
-        public Password()
-        {
-        }
 
         public Password(string password, int minSmallLetter, int minBigLetter, int minNumbers, int minSymbols)
         {
@@ -33,7 +28,7 @@ namespace PasswordStruct
 
         public bool HasSymbols()
         {
-            int symbol = (from c in password from chr in symbolChar where chr == c select c).Count();
+            int symbol = (from c in password from chr in SymbolChar.SymbolCharValue where chr == c select c).Count();
 
             return symbol >= minSymbols;
         }

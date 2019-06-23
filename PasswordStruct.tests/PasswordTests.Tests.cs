@@ -2,7 +2,7 @@ using Xunit;
 
 namespace PasswordStruct.Tests
 {
-    internal class PasswordTests
+    public class PasswordStructTests
     {
         public class ProgramTests
         {
@@ -43,9 +43,9 @@ namespace PasswordStruct.Tests
             [Fact]
             public void DetermineCorrectlyThatPasswordDoesNotMeetComplexityConditionsWhenThereAreNotEnoughDigits()
             {
-               var actual = new Password("abodeAB/12+-", 5, 2, 1, 2);
-               bool result = actual.CheckPasswordComplexity();
-               Assert.True(result);
+                Password actual = new Password("abodeAB/12+-", 5, 2, 1, 2);
+                bool result = actual.CheckPasswordComplexity();
+                Assert.True(result);
             }
 
             [Fact]
